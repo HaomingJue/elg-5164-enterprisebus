@@ -1,10 +1,9 @@
 package com.cloudtech.enterprisebus.controller;
 
+import com.cloudtech.enterprisebus.dto.ProductRequest;
+import org.apache.coyote.Response;
 import org.springframework.http.*;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 
@@ -21,11 +20,11 @@ public class ProductApiController {
     }
 
     @GetMapping
-    public ResponseEntity<String> getAllProducts() {
+    public ResponseEntity<?> getAllProducts() {
         String url = BASE_URL; // replace with the URL of the external API
-
-
-        HttpEntity<String> requestEntity = new HttpEntity<>(null);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> requestEntity = new HttpEntity<>(null, headers);
         ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, String.class);
         String responseBody = responseEntity.getBody();
 
@@ -33,15 +32,66 @@ public class ProductApiController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<String> getProductById(@PathVariable("id") Long id) {
+    public ResponseEntity<?> getProductById(@PathVariable("id") Long id) {
         String url = BASE_URL + "/" + id;
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> requestEntity = new HttpEntity<>(headers);
+        try {
+            ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, String.class);
+            String responseBody = responseEntity.getBody();
+            return new ResponseEntity<>(responseBody, HttpStatus.OK);
+        }
+        catch(Exception e) {
+            return new ResponseEntity<>(e.toString(), HttpStatus.NOT_FOUND);
+        }
 
-        HttpEntity<String> requestEntity = new HttpEntity<>(null);
-        ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, String.class);
-        String responseBody = responseEntity.getBody();
-
-        return new ResponseEntity<>(responseBody, HttpStatus.OK);
     }
 
+    @PostMapping
+    public ResponseEntity<?> createProduct(@RequestBody ProductRequest productRequest) {
+        String url = BASE_URL;
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<ProductRequest> requestEntity = new HttpEntity<>(productRequest, headers);
+        ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class);
+        String responseBody = responseEntity.getBody();
+        HttpStatus statusCode = HttpStatus.valueOf(responseEntity.getStatusCode().value());
+
+        return new ResponseEntity<>(responseBody, statusCode);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<?> deleteAllProducts() {
+        String url = BASE_URL;
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<ProductRequest> requestEntity = new HttpEntity<>(headers);
+        ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.DELETE, requestEntity, String.class);
+        String responseBody = responseEntity.getBody();
+
+        return new ResponseEntity<>(responseBody, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteProductById(@PathVariable("id") Long id) {
+        String url = BASE_URL + "/" + id;
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<ProductRequest> requestEntity = new HttpEntity<>(headers);
+        try {
+            ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.DELETE, requestEntity, String.class);
+            String responseBody = responseEntity.getBody();
+            HttpStatus statusCode = HttpStatus.valueOf(responseEntity.getStatusCode().value());
+            return new ResponseEntity<>(responseBody, statusCode);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(e.toString(), HttpStatus.NOT_FOUND);
+        }
+
+    }
 }
 
