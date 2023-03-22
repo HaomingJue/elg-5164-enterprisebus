@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 @RequestMapping("/products")
 public class ProductApiController {
 
-    private final String BASE_URL = "http://localhost:8080/products";
+    private final String BASE_URL = "http://34.74.40.146:80/products";
     private final RestTemplate restTemplate;
 
     public ProductApiController(RestTemplate restTemplate) {

@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: github-actions-gke-enterprisebus
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: github-actions-gke-enterprisebus
+  template:
+    metadata:
+      labels:
+        app: github-actions-gke-enterprisebus
+    spec:
+      containers:
+        - name: app
+          image: gcr.io/elg5164project/enterprisebus-gke-image:1.0.0
+          imagePullPolicy: Always
