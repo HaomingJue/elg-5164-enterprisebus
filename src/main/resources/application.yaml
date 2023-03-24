@@ -10,3 +10,17 @@ server:
 #    web:
 #      exposure:
 #        include: '*'
+management:
+  enable:
+    process:
+      cpu:
+        usage: true
+
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  prometheus:
+    metrics:
+      export:
+        enabled: true

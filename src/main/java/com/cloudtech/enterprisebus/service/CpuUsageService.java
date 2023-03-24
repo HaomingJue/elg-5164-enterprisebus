@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 @Service
 @Endpoint(id = "cpu-usage")
 public class CpuUsageService {
-
     @ReadOperation
     public Supplier<Double> getCpuUsage() {
         OperatingSystemMXBean osBean = ManagementFactory.getPlatformMXBean(OperatingSystemMXBean.class);
@@ -24,4 +23,5 @@ public class CpuUsageService {
         }
         return () -> cpuUsage;
     }
+
 }
