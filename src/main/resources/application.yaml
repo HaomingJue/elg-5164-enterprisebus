@@ -1,15 +1,6 @@
 server:
   port: 8080
 
-#management:
-#  metrics:
-#    export:
-#      prometheus:
-#        enabled: true
-#  endpoints:
-#    web:
-#      exposure:
-#        include: '*'
 management:
   enable:
     process:
@@ -20,6 +11,7 @@ management:
     web:
       exposure:
         include: '*'
+
   prometheus:
     metrics:
       export:
