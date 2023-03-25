@@ -16,6 +16,10 @@ spec:
         - name: app
           image: gcr.io/elg5164project/enterprisebus-gke-image:1.0.0
           imagePullPolicy: Always
-
+          resources:
+            # You must specify requests for CPU to autoscale
+            # based on CPU utilization
+            requests:
+              cpu: "500m"
 
 
