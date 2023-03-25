@@ -16,3 +16,10 @@ spec:
         target:
           type: Utilization
           averageUtilization: 20
+    - type: External
+      external:
+        metricName: process_cpu_usage
+        metricSelector:
+          matchLabels:
+            app: github-actions-gke-enterprisebus
+        targetAverageValue: 50m
