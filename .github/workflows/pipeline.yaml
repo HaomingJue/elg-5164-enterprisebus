@@ -68,6 +68,7 @@ jobs:
 
       - name: Deploy Image to GKE cluster
         run: |-
+          nohup kubectl delete deployment github-actions-gke-enterprisebus &
           ./kustomize edit set image gcr.io/${{ env.PROJECT_ID }}/${{ env.IMAGE }}:${{ env.TAG }}=gcr.io/${{ env.PROJECT_ID }}/${{ env.IMAGE }}:${{ env.TAG }}
           ./kustomize build . | kubectl apply -f -
           kubectl rollout status deployment/${{ env.DEPLOYMENT_NAME }} 
