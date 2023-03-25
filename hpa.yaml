@@ -12,7 +12,7 @@ spec:
   metrics:
     - type: Resource
       resource:
-        name: cpu
+        name: CPU
         target:
           type: AverageValue
           averageValue: 500m
