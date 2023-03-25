@@ -9,10 +9,6 @@ spec:
       app: github-actions-gke-enterprisebus
   template:
     metadata:
-      annotations:
-        prometheus.io/path: /actuator/prometheus
-        prometheus.io/scrape: "true"
-        prometheus.io/port: "8080"
       labels:
         app: github-actions-gke-enterprisebus
     spec:
@@ -20,12 +16,6 @@ spec:
         - name: app
           image: gcr.io/elg5164project/enterprisebus-gke-image:1.0.0
           imagePullPolicy: Always
-          ports:
-            - containerPort: 8080
-          resources:
-            # You must specify requests for CPU to autoscale
-            # based on CPU utilization
-            requests:
-              cpu: "500m"
+
 
 
