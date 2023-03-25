@@ -20,3 +20,5 @@ spec:
         - name: app
           image: gcr.io/elg5164project/enterprisebus-gke-image:1.0.0
           imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
