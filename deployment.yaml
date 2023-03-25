@@ -20,6 +20,6 @@ spec:
             # You must specify requests for CPU to autoscale
             # based on CPU utilization
             requests:
-              cpu: "500m"
+              cpu: "250m"
 
 
