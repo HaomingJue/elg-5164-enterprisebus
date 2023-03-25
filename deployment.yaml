@@ -22,3 +22,8 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
+              resources:
+                # You must specify requests for CPU to autoscale
+                # based on CPU utilization
+                requests:
+                  cpu: "250m"
