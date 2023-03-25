@@ -12,14 +12,14 @@ spec:
   metrics:
     - type: Resource
       resource:
-        name: cpu
+        name: process_cpu_usage
         target:
           type: Utilization
           averageUtilization: 20
-    - type: External
-      external:
-        metricName: process_cpu_usage
-        metricSelector:
-          matchLabels:
-            app: github-actions-gke-enterprisebus
-        targetAverageValue: 50m
+#    - type: External
+#      external:
+#        metric:
+#        metricSelector:
+#          matchLabels:
+#            app: github-actions-gke-enterprisebus
+#        targetAverageValue: 50m
