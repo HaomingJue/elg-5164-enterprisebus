@@ -12,7 +12,6 @@ spec:
   metrics:
     - type: Resource
       resource:
-        name: process_cpu_usage
-        target:
-          type: Utilization
-          averageUtilization: 20
+      target:
+        type: AverageValue
+        averageValue: 500m
