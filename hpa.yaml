@@ -9,10 +9,11 @@ spec:
     name: github-actions-gke-enterprisebus
   minReplicas: 2
   maxReplicas: 10
-  metrics:
-    - type: Resource
-      resource:
-        name: CPU
-        target:
-          type: AverageValue
-          averageValue: 500m
+  targetCPUUtilizationPercentage: 50
+#  metrics:
+#    - type: Resource
+#      resource:
+#        name: CPU
+#        target:
+#          type: %
+#          averageValue: 500m
